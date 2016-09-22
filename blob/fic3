@@ -1,0 +1,7 @@
+#include <graphics.c>
+/*
+cp fic1 fic2
+mv fic2 fic3
+rm fic1
+
+*/

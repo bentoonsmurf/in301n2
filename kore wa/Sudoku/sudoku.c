@@ -4,7 +4,7 @@
 
 // Franck.Quessette@uvsq.fr
 // Novembre 2016
-
+#include <stdio.h>
 #include <stdlib.h>
 #include "sudoku.h"
 #include "action.h"
@@ -22,6 +22,56 @@ SUDOKU initialiser_sudoku (){
 		}
 	return S;
 }
+/*
+SUDOKU lire_dans_fichier(FILE* fichier){
+	int char_actuel;
+	int x=0; int y=0;
+	SUDOKU s;
+	s.mode=JOUER;
+	while(char_actuel != EOF){
+		char_actuel= getc(fichier);
+		if (char_actuel == ' ') {
+			x=x+1;
+		}
+		else if( char_actuel == '\n') {
+			y=y+1;
+			}
+			else {
+				s.la_case[x][y].val = char_actuel;
+			}
+	}
+return s;	
+}*/
+
+SUDOKU lire_dans_fichier(FILE* fichier){
+	// fgetc(fichier) revoie le prochain char
+	// c - 48 ----> char into int
+	int x,y;
+	SUDOKU s;
+	s.mode=JOUER;
+	for(y=8;y>=0;y--){
+		for(x=0;x<9;x++){
+			fscanf(fichier,"%d",&s.la_case[x][y].val);
+			s.la_case[x][y].modifiable =(0 == s.la_case[x][y].val);  // 1 = modifiable
+		}
+	}
+return s;
+	
+}
+
+/*
+lire  f   autosave
+ecrire fprintf au demarage
+int agrc ,char **argv
+FILE* fopen(const char* nomDuFichier, const char* modeOuverture); 'r'
+
+
+fscanf(fichier,"%d",&x)
+char = getc(fichier) lire char par char
+
+*/	
+
+
 
 
 // Fonction qui calcule la solution du sudoku
@@ -52,25 +102,28 @@ int verifie_colone(SUDOKU S,int x,int y,int val){
 	return 1;
 }
 int verifie_block(SUDOKU s,int x,int y,int val){
+	
 	int xblok=(x/3)*3;
 	int yblok=(y/3)*3;
 	int i,j;
 	for(i=0;i<3;i++){
 		for(j=0;j<3;j++){
-			if (s.la_case[xblok+i][yblok+j]=val) return 0;
+			if (s.la_case[xblok+i][yblok+j].val=val) return 0;
 		}
 	}
+	
 return 1;
 }
 int valeur_suivante(SUDOKU S, int x, int y) {
 	int arret=  S.la_case[x][y].val ;
 	int val = (arret + 1)%10;
-	while(verifie_ligne( S,x,y,val)&&verifie_colone(S,x,y,val)&&verifie_block(S,x,y,val)&&val!=arret){
+	while(!verifie_ligne( S,x,y,val) && !verifie_colone(S,x,y,val) && !verifie_block(S,x,y,val)&&val!=arret){
 		val=(val+1)%10;
 	}
 	// A FINIR
 	// Pour le moment on renvoie la valeur+1 sans vérifier ligne, colonne et bloc
 	return (S.la_case[x][y].val + 1)%10;
+	return val;
 }
 
 
@@ -97,10 +150,12 @@ SUDOKU modifier_sudoku_action (SUDOKU S, ACTION A) {
 
 // Le main
 int main() {
+	FILE* fichier= fopen("fichier_test","r");
 	SUDOKU S;
 	ACTION A;
 	initialiser_affichage();
 	S = initialiser_sudoku();
+	S = lire_dans_fichier(fichier);
 	afficher_sudoku(S);
 	do {
 		A = recuperer_action();

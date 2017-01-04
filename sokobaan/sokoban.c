@@ -9,11 +9,10 @@ c'est deja dans fonction_pour_undo_redo
 #include "fonction_affichage.c"
 
 int main(int argc, char ** argv){
-init_graphics(800,400);
+init_graphics(900,600);
 FILE* f =fopen("sasquatch1.xsb","r"	);	
 
 fclose(f);
-
 
 char test_char='a';
 int test_fleche;

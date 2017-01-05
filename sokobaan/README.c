@@ -32,7 +32,11 @@ objectif a ateindre
 				###############
 				###############
 				###############
-				undo redo   save
+				undo redo save restart quit
+				jouer un autre niveau{
+					precedant suivant choisir soi meme 
+					
+				}
 				
 				
 				
@@ -58,17 +62,20 @@ arbre des includes
 /*sokoban.c*/ {
 	
 
-	#include "fonction_pour_undo_redo.c"{
-		#include <stdio.h>
-		#include <stdlib.h>
-		#include "structures.h"
-	}
+
 	#include "fonction_pour_la_jouabilite.c"{
 		#include <time.h>
 	}
 	#include "fonction_affichage.c"{
-		#include "structures.h"
 		#include <uvsqgraphics.h>
+		#include "fonction_pour_undo_redo.c"{
+			#include "gestion_de_fichier.c"{
+				#include <stdio.h>
+				#include <stdlib.h>
+				#include "structures.h"
+			}
+			
+		}
 	}
 }
 

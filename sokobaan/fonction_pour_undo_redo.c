@@ -1,7 +1,5 @@
 // gestion de listes
-#include <stdio.h>
-#include <stdlib.h>
-#include "structures.h"
+#include "gestion_de_fichier.c"
 
 
 liste init_liste(){
@@ -31,16 +29,20 @@ liste ajout_fin(liste l,deplacement d){
 }
 
 
-
-
-
-
 void clear(liste l){
 	if (l == NULL) return;
 	if (l->suiv != NULL)  clear(l->suiv);
 	
 	free(l);
 }
+
+
+
+
+
+
+// il faut la lecture du fichier 
+
 
 
 

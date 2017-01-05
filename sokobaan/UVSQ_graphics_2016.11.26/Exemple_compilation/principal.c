@@ -1,4 +1,4 @@
-#include "affiche.h"
+#include "affiche.c"
 #include <stdlib.h>
 
 int main() {

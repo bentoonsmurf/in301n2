@@ -8,13 +8,27 @@
 #define keyboard 1
 #define arrow 2
 #define clic 3
+#define size_of_case 25
+#define largeur_max 30//x
+#define hauteur_max 20//y 
+#define sauvgarde -1
 
-struct pos{ // comme POINT mais avec moins de lettres
+#define mur -2 //#
+#define caisse -3 //$
+#define position_de_rangement -4 //.
+#define personage -5 //@
+#define caisse_rangee -6 //*
+#define personage_sur_rangement -7 //+
+#define rien -8 // 
+
+
+
+
+
+typedef struct pos{ // comme POINT mais avec moins de lettres
 	int x;
 	int y;
-};
-typedef struct pos pos;
-
+}pos;
 
 typedef struct deplacement{
 	pos depart;
@@ -29,6 +43,9 @@ typedef struct element{// if (l->delta->depart  ==  l->delta->arrivee )
 }element;
 typedef element* liste;
 
+typedef struct sokoban{
+	int tab[30][20];
+}sokoban;
 /*
 une nouvelle version de la librairie uvsqgraphics est disponible sur e-campus. La nouvelle documentation est également disponible. 
 Cette nouvelle version contient une nouvelle fonction : 

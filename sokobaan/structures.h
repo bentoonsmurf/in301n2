@@ -20,7 +20,7 @@
 #define caisse_rangee -6 //*
 #define personage_sur_rangement -7 //+
 #define rien -8 // 
-
+#define hors_du_terain -9 // meme pas un espace
 
 
 

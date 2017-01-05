@@ -13,19 +13,19 @@ sokoban init_sokoban(){
 	int x=0; int y =0;
 	for (x=0;x<largeur_max;x++)
 		for(y=0;y<hauteur_max;y++)
-			s.tab[x][y]=0;
+			s.tab[x][y]=hors_du_terain;
 	return s;
 	
 	
 }
 
 void print_sokoban(sokoban s){
-	int x=0; int y =0;
-	for (x=0;x<largeur_max;x++){
+	int x,y;
+	for (x=largeur_max;x>0;x--){
 		for(y=0;y<hauteur_max;y++){
 			printf("%d",s.tab[x][y]);
 		}
-		
+		printf("\n");
 	}
 	
 	

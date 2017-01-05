@@ -2,7 +2,7 @@ all: principal
 	./principal
 
 principal: principal.o affiche.o
-	gcc -o principal principal.o affiche.o -luvsqgraphics `sdl-config --libs` -lm -lSDL_ttf
+	gcc -o principal principal.o affiche.o -luvsqgraphics `sdl-config --libs` -lm -lSDL_ttf -I/usr/include/SDL
 
 principal.o: principal.c affiche.h
 	gcc -c principal.c

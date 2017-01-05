@@ -19,7 +19,7 @@ POINT test_point; test_point.x=10; test_point.y=15;
 int i=0;
 
 
-while (i<100){
+while (i<1){
 int test =  wait_key_arrow_clic (&test_char, &test_fleche, &test_point);
 if (test_char == 'Q') exit(0); 
 printf("le char est %c\n",test_char); 

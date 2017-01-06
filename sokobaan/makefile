@@ -1,8 +1,8 @@
 
-all: preliminaires
+all: sokoban
 	./sokoban
 
-preliminaires: sokoban.c
+sokoban: sokoban.c
 	gcc -g -Wall -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT "sokoban.c" -o "sokoban" -luvsqgraphics -L/usr/lib/x86_64-linux-gnu -lSDL -lm -lSDL_ttf
 
 debug_graphics:

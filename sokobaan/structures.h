@@ -9,9 +9,16 @@
 #define arrow 2
 #define clic 3
 #define size_of_case 25
-#define largeur_max 30//x
-#define hauteur_max 20//y 
+#define largeur_max 30 //x
+#define hauteur_max 20 //y 
+
+#define recommencer -1
+#define ok 42
 #define sauvgarde -1
+#define lire_sauvgarde -1
+#define nouvelle_partie -2
+#define charger_mon_propre_sokoban -3
+
 
 #define mur -2 //#
 #define caisse -3 //$
@@ -44,18 +51,8 @@ typedef struct element{// if (l->delta->depart  ==  l->delta->arrivee )
 typedef element* liste;
 
 typedef struct sokoban{
-	int tab[30][20];
+	int **tab;
 }sokoban;
-/*
-une nouvelle version de la librairie uvsqgraphics est disponible sur e-campus. La nouvelle documentation est également disponible. 
-Cette nouvelle version contient une nouvelle fonction : 
 
-int wait_key_arrow_clic (char *touche, int *fleche, POINT *P); 
-
-Cette fonction attend que l'on appuie soit sur une lettre, une flèche ou que l'on clique. 
-La fonction modifie la touche, la flèche ou le point selon le premier événement qui arrive. 
-La fonction renvoie le type d'événement : touche, flèche ou point 
-Cette fonction est bloquante. 
-*/
 //fopen("file_name","r")
 //fscanf("file_name",%d,&variable_int);

@@ -8,6 +8,8 @@ ce readme contient
 
 
 
+// ATTENTION dans fonction_affichage il y a une montagne de if
+// il est conseiller de ne pas les lires de 38 a 240 
 objectif a ateindre
 
 1  lire puis stoker la partie voulu
@@ -20,19 +22,19 @@ objectif a ateindre
 					" puis clicer sur ok "
 					
 					
-				load
+				lire la sauvgarde
 					lire le fichier sauvgarde par defaut
 				new game 
 					entrer un numero 7 8 9 
 					que du wait_clic 4 5 6 new number
 									 1 2 3 ok
 			apres le lancement
-				############### 
+				############### undo
+				############### redo
+				############### save
+				############### quit
 				###############
-				###############
-				###############
-				###############
-				undo redo save restart quit
+				restart jouer un autre niveau
 				jouer un autre niveau{
 					precedant suivant choisir soi meme 
 					

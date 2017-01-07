@@ -5,8 +5,8 @@
 #define droite 90
 #define bas 180
 #define gauche 270
-#define keyboard 1
-#define arrow 2
+#define keyboard 2
+#define arrow 1
 #define clic 3
 #define size_of_case 25
 #define largeur_max 30 //x
@@ -39,7 +39,7 @@ typedef struct pos{ // comme POINT mais avec moins de lettres
 
 typedef struct deplacement{
 	pos depart;
-	pos arrivee;
+	int dirrection;
 	int caisse_deplace; // parce que on est toujours contant de deplacer une caisse
 }deplacement;
 
@@ -52,6 +52,7 @@ typedef element* liste;
 
 typedef struct sokoban{
 	int **tab;
+	pos joueur;
 }sokoban;
 
 //fopen("file_name","r")

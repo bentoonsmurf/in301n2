@@ -1,19 +1,10 @@
 //#include "structures.h"
 #include <uvsqgraphics.h>
-#include "fonction_pour_la_jouabilite.c"
 #include "fonction_pour_undo_redo.c"
 // size_of_case= 25
 // hauteur_max = 20  y 
 // largeur_max = 30  x
 
-int choix_premiere_interface(){
-	POINT p2;
-	p2=wait_clic();
-	
-	if(p2.y<225)return  lire_sauvgarde;
-	else if(p2.y>390)return charger_mon_propre_sokoban;
-		else return nouvelle_partie;
-}
 
 
 void afficher_premiere_interface(){
@@ -39,6 +30,8 @@ void afficher_premiere_interface(){
 
 
 }
+
+           
 
 void affiche_une_grille_de_chiffres(){
 	fill_screen(white);	
@@ -162,46 +155,45 @@ void affiche_le_nombre_actuel(int unite,int dizaine){
 	}
 	// unite 
 	//HMMMMMM le bon copie cole 
-	dizaine=unite;
-	if(dizaine != rien){		
+	if(unite != rien){		
 		p1.x=475;  p1.y=110;
-		if(dizaine == 0){
+		if(unite == 0){
 			string="0";
 			aff_pol(string,50,p1,black);
 		}
-		if(dizaine == 1){
+		if(unite == 1){
 			string="1";
 			aff_pol(string,50,p1,black);
 		}
-		if(dizaine == 2){
+		if(unite == 2){
 			string="2";
 			aff_pol(string,50,p1,black);
 		}	
-		if(dizaine == 3){
+		if(unite == 3){
 			string="3";
 			aff_pol(string,50,p1,black);
 		}
-		if(dizaine == 4){
+		if(unite == 4){
 			string="4";
 			aff_pol(string,50,p1,black);
 		}
-		if(dizaine == 5){
+		if(unite == 5){
 			string="5";
 			aff_pol(string,50,p1,black);
 		}
-		if(dizaine == 6){
+		if(unite == 6){
 			string="6";
 			aff_pol(string,50,p1,black);
 		}
-		if(dizaine == 7){
+		if(unite == 7){
 			string="7";
 			aff_pol(string,50,p1,black);
 		}
-		if(dizaine == 8){
+		if(unite == 8){
 			string="8";
 			aff_pol(string,50,p1,black);
 		}
-		if(dizaine == 9){
+		if(unite == 9){
 			string="9";
 			aff_pol(string,50,p1,black);
 		}
@@ -308,57 +300,60 @@ void print_sokoban2(sokoban s){
 
 void afficher_une_case(sokoban s,int x,int y){
 	POINT p1,p2;
-	p1.x=x*25; p1.y=(y*25)+124;	p2.x=(x*25)+24; p2.y=(y*25)+100;
-	//il se trouve que 25 est plus court que size_of_case et en plus est ecrit en vert
-	p1.y=p1.y+3;
-	
-	char string[1];
+	if(x>=0 && x<30 && y>=0 && y<20){// au cas ou je cherche a afficher qqchose
+									// hors du tableau
+		p1.x=x*25; p1.y=(y*25)+124;	p2.x=(x*25)+24; p2.y=(y*25)+100;
+		//il se trouve que 25 est plus court que size_of_case et en plus est ecrit en vert
+		
+		char string[1];
+		if(s.tab[x][y]==mur){
+			string[0]='#';
+			draw_fill_rectangle(p1,p2,black);
+			p1.y=p1.y+3;
+			aff_pol(string,25,p1,blue);
+			
 
-	
-
-	//aff_pol(string,25,p1,blue);
-	
-	if(s.tab[x][y]==mur){
-		string[0]='#';
-		draw_fill_rectangle(p1,p2,black);
-		aff_pol(string,25,p1,blue);
+		}
+		if(s.tab[x][y]==caisse){
+			draw_fill_rectangle(p1,p2,white);
+			p1.y=p1.y+6;	p1.x=p1.x+3;
+			string[0]='$';
+			aff_pol(string,25,p1,marron);
+		}
+		if(s.tab[x][y]==position_de_rangement){
+			draw_fill_rectangle(p1,p2,lightgreen);
+			p1.y=p1.y+3;
+			string[0]='.';
+			aff_pol(string,25,p1,white);
+		}	
+		
+		if(s.tab[x][y]==personage){
+			draw_fill_rectangle(p1,p2,white);
+			p1.y=p1.y+4;
+			string[0]='@';
+			aff_pol(string,25,p1,red);
+		}
+		if(s.tab[x][y]==caisse_rangee){
+			draw_fill_rectangle(p1,p2,vert);
+					p1.y=p1.y+3;
+			string[0]='*';
+			aff_pol(string,30,p1,marron);
+		}	
+		if(s.tab[x][y]==personage_sur_rangement){
+			draw_fill_rectangle(p1,p2,lightgreen);
+			p1.y=p1.y+4;
+			string[0]='+';
+			aff_pol(string,25,p1,red);	
+		}	
+		if(s.tab[x][y]==rien){
+			draw_fill_rectangle(p1,p2,white);
+		}	
+		if(s.tab[x][y]==hors_du_terain){
+					p1.y=p1.y+3;
+			draw_fill_rectangle(p1,p2,black);
+		}	
+		
 	}
-	if(s.tab[x][y]==caisse){
-		draw_fill_rectangle(p1,p2,white);
-		string[0]='$';
-		aff_pol(string,25,p1,marron);
-	}
-	if(s.tab[x][y]==position_de_rangement){
-		draw_fill_rectangle(p1,p2,lightgreen);
-		string[0]='.';
-		aff_pol(string,25,p1,white);
-	}	
-	
-	if(s.tab[x][y]==personage){
-		draw_fill_rectangle(p1,p2,white);
-		p1.y++;
-		string[0]='@';
-		aff_pol(string,25,p1,red);
-	}
-	if(s.tab[x][y]==caisse_rangee){
-		draw_fill_rectangle(p1,p2,vert);
-		string[0]='*';
-		aff_pol(string,30,p1,marron);
-	}	
-	if(s.tab[x][y]==personage_sur_rangement){
-		draw_fill_rectangle(p1,p2,lightgreen);
-		p1.y++;
-		string[0]='+';
-		aff_pol(string,25,p1,red);	
-	}	
-	if(s.tab[x][y]==rien){
-		draw_fill_rectangle(p1,p2,white);
-	}	
-	if(s.tab[x][y]==hors_du_terain){
-		draw_fill_rectangle(p1,p2,black);
-	}	
-	
-
 	
 }
 
@@ -367,8 +362,10 @@ void afficher_la_grille(sokoban s){
 	fill_screen(white);
 	POINT p1,p2;
 	int x,y;
+	
 	for (x=0 ; x<30 ; x++)
 		for (y=0 ; y<20 ; y++) afficher_une_case(s,x,y);
+	
 	
 	p1.x=0; p1.y=99; 		p2.x=900; p2.y=99;
 	draw_line(p1,p2,blue);
@@ -391,8 +388,8 @@ void afficher_les_options_de_jeu(){
 	POINT p1;
 	char *string;
 	
-	p1.x=75;  p1.y=90;
-	string="restart";
+	p1.x=85;  p1.y=90;
+	string="init";
 	aff_pol(string,50,p1,black);
 	
 	p1.x=300;  p1.y=90;
@@ -417,6 +414,33 @@ void afficher_les_options_de_jeu(){
 	aff_pol(string,50,p1,black);
 	
 
+}
+
+void afficher_apres_un_deplacement(deplacement d,sokoban s){
+	pos destination=d.depart;
+	pos au_dela=d.depart;
+	if(d.dirrection==haut){	
+		 destination.y++;
+		 au_dela.y +=2;
+	 }
+	if(d.dirrection==bas){
+		destination.y--;
+		au_dela.y -=2;
+	}
+	if(d.dirrection==droite){
+		destination.x++;
+		au_dela.x +=2;
+	}
+	if(d.dirrection==gauche){
+		destination.x--;
+		au_dela.x -=2;
+	}
+	
+	afficher_une_case(s,d.depart.x,d.depart.y);
+	afficher_une_case(s,destination.x,destination.y);
+	afficher_une_case(s,au_dela.x,au_dela.y);
+	
+	
 }
 
 void afficher_sokoban(sokoban s){

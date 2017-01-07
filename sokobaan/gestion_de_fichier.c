@@ -22,10 +22,59 @@ sokoban init_sokoban(){
 	int x=0; int y =0;
 	for(y=0;y<hauteur_max;y++)
 		for (x=0;x<largeur_max;x++)
-			
 			s.tab[x][y]=-9;
 	return s;
 }
+
+
+///////////////////////////////////////////////////////////////////////////////////////
+sokoban lire_sauvgarde_fonction(sokoban s){
+	
+		FILE* f =fopen("sauvgarde","r"	);	
+		printf("je suis apres fopen et avant le while \n");
+		int caractere =0;
+		int x=0; int y=0;
+		while(caractere != EOF){
+			caractere = fgetc(f);
+			printf("\n dans le while -");
+			printf("\n caractere = %d ",caractere);
+			printf("\n x = %d ",x);
+			printf("\n y = %d ",y);
+			if(caractere =='\n') {
+				y++;
+				x=0;
+				printf("\n into the while ");
+			}
+			if(caractere ==13) {// allez savoir pourquoi \n ca marche pas
+				y++;
+				x=0;
+				printf("\n into the while ");
+			}
+			if(caractere =='#') s.tab[x][y]= mur;
+			if(caractere =='$') s.tab[x][y]= caisse;
+			if(caractere =='.') s.tab[x][y]= position_de_rangement;
+			if(caractere =='@') s.tab[x][y]= personage;
+			if(caractere =='*') s.tab[x][y]= caisse_rangee;
+			if(caractere =='+') s.tab[x][y]= personage_sur_rangement;
+			if(caractere ==' ') s.tab[x][y]= rien;
+			
+			x++;
+			printf("|%d|",s.tab[x][y]);
+			
+		}
+printf("je suis apres le while \n");
+		fclose(f);
+
+printf("je suis apres fclose \n");		
+	
+	return s;
+
+}
+
+
+
+
+
 
 sokoban recuperer_un_niveau(int que_dois_je_recuperer){
 	sokoban s;
@@ -44,11 +93,12 @@ sokoban recuperer_un_niveau(int que_dois_je_recuperer){
 		int caractere =0;
 		int x=0; int y=0;
 		while(caractere != EOF){
-			printf("\n dans le while ");
+			printf("\n dans le while -");
 			caractere = fgetc(f);
-			printf("-");
+			printf("\n caractere = %d ",caractere);
 			if(caractere =='\n') {
 				y++;
+				x=0;
 				printf("\n into the while ");
 			}
 			if(caractere =='#') s.tab[x][y]= mur;
@@ -70,6 +120,10 @@ printf("je suis apres fclose \n");
 	}
 
 //si le joueur a demandé un niveau particulier
+// alors c'est pas suvgarde
+
+
+
 
 return s;
 }

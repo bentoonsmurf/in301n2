@@ -9,9 +9,10 @@ int main(int argc, char ** argv){
 init_graphics(900,600);
 sokoban s;
 s=init_sokoban(); // dans gestion de fichier
-//s=recuperer_un_niveau(sauvgarde); // gestion de fichier
+s=lire_sauvgarde_fonction(s); // gestion de fichier
 
 
+/*
 s.tab[0][0]=-2;
 s.tab[1][0]=-2;
 s.tab[2][0]=-3;
@@ -21,6 +22,8 @@ s.tab[15][10]=-6;
 s.tab[16][10]=-7;
 s.tab[17][10]=-8;
 s.tab[29][19]=-8;
+*/
+
 
 int numero_du_sokoban_selectione;
 int g=afficher_premiere_interface();
@@ -63,5 +66,6 @@ printf(" i est a %d \n",i);
 
 detruire_sokoban(&s);
 printf(" tout va bien \n");
+
 return 0;
 }

@@ -93,28 +93,24 @@ return s;
 
 
 sokoban jouer_deplacement(deplacement d, sokoban s){
-		printf("joueur.x %d joueur.y %d  debut jouer_dep \n",s.joueur.x,s.joueur.y);
+	
 	pos destination=d.depart;
 	pos au_dela=d.depart;
 	if(d.dirrection==haut){	
 		 destination.y++;
 		 au_dela.y +=2;
-		 printf(" haut ");
 	 }
 	if(d.dirrection==bas){
 		destination.y--;
 		au_dela.y -=2;
-				 printf(" bas ");
 	}
 	if(d.dirrection==droite){
 		destination.x++;
 		au_dela.x +=2;
-				 printf(" droite ");
 	}
 	if(d.dirrection==gauche){
 		destination.x--;
 		au_dela.x -=2;
-				 printf(" gauche ");
 	}
 	if (d.caisse_deplace==oui){
 		if(s.tab[d.depart.x][d.depart.y]==personage)
@@ -123,9 +119,9 @@ sokoban jouer_deplacement(deplacement d, sokoban s){
 			s.tab[d.depart.x][d.depart.y]=position_de_rangement;
 		
 		if(s.tab[destination.x][destination.y]==caisse)
-			s.tab[destination.x][destination.y]=rien;
+			s.tab[destination.x][destination.y]=personage;
 		if(s.tab[destination.x][destination.y]==caisse_rangee)
-			s.tab[destination.x][destination.y]=position_de_rangement;
+			s.tab[destination.x][destination.y]=personage_sur_rangement;
 			
 		if(s.tab[au_dela.x][au_dela.y]==rien )
 			s.tab[au_dela.x][au_dela.y]=caisse;
@@ -147,10 +143,8 @@ sokoban jouer_deplacement(deplacement d, sokoban s){
 		
 	}
 	
-	printf("destination.x %d destination.y %d   \n",destination.x,destination.y);
 	s.joueur=destination;
 
-	printf("joueur.x %d joueur.y %d   \n",s.joueur.x,s.joueur.y);
 	return s;
 }
 

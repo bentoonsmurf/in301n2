@@ -27,6 +27,9 @@ int i=0;
 int test;
 while (i<100){
 	i++;
+	
+	if(i==10)print_sokoban2(s);
+	
 	test =  wait_key_arrow_clic_a_moi (&test_char, &test_fleche, &test_point);
 
 	printf("le char est %c\n",test_char); 

@@ -9,7 +9,7 @@ int main(int argc, char ** argv){
 init_graphics(900,600);
 sokoban s;
 s=init_sokoban(); // dans gestion de fichier
-s=lire_sauvgarde_fonction(s); // gestion de fichier
+ // gestion de fichier
 
 
 /*
@@ -25,18 +25,26 @@ s.tab[29][19]=-8;
 */
 
 
-int numero_du_sokoban_selectione;
-int g=afficher_premiere_interface();
-wait_clic();
+int numero_du_sokoban_selectione=100;
+afficher_premiere_interface();
+int g=choix_premiere_interface();
+
+
 if(g==lire_sauvgarde){
-	
+	s=lire_sauvgarde_fonction(s);
 }
 if(g==nouvelle_partie){
-	numero_du_sokoban_selectione = interface_de_selection_de_numero();
+	while(numero_du_sokoban_selectione >50){
+		numero_du_sokoban_selectione = interface_de_selection_de_numero();}
+	s=recuperer_un_niveau(numero_du_sokoban_selectione,s);
+	
 }
 if(g==charger_mon_propre_sokoban){
 	
 }
+
+
+
 printf("%d numero \n ",numero_du_sokoban_selectione);
 afficher_sokoban(s);
 

@@ -6,9 +6,17 @@
 // hauteur_max = 20  y 
 // largeur_max = 30  x
 
+int choix_premiere_interface(){
+	POINT p2;
+	p2=wait_clic();
+	
+	if(p2.y<225)return  lire_sauvgarde;
+	else if(p2.y>390)return charger_mon_propre_sokoban;
+		else return nouvelle_partie;
+}
 
 
-int afficher_premiere_interface(){
+void afficher_premiere_interface(){
 	fill_screen(white);
 	POINT p1,p2;
 	p1.x=300;  p1.y=175;
@@ -28,12 +36,7 @@ int afficher_premiere_interface(){
 	p1.x=0; p1.y=390; 		p2.x=900; p2.y=390;
 	draw_line(p1,p2,black);
 
-	p2=wait_clic();
-	
-	if(p2.y<225)return  charger_mon_propre_sokoban;
-	else if(p2.y>390)return lire_sauvgarde;
-		else return nouvelle_partie;
-	
+
 
 }
 

@@ -25,18 +25,17 @@ int test_fleche=0;
 POINT test_point; test_point.x=10; test_point.y=15;
 int i=0;
 int test;
-while (i<100){
-	i++;
-	
-	if(i==10)print_sokoban2(s);
-	
+liste l=NULL;
+//liste a_suprimer =NULL;
+while (test_char!='Q'){
+
 	test =  wait_key_arrow_clic_a_moi (&test_char, &test_fleche, &test_point);
 
 	printf("le char est %c\n",test_char); 
 	printf("la fleche est %d\n",test_fleche); 
 	printf("le point est %d x et %d y \n",test_point.x,test_point.y); 
 	printf("la valeur de wait__%d\n",test);
-	
+
 	if(test==keyboard){
 		if (test_char == 'Q') exit(0); 
 		if (test_char == 'J'||test_char == 'S'||test_char == 'P') {
@@ -44,28 +43,60 @@ while (i<100){
 			choix=choix_premiere_interface();
 			s=resoudre_un_choix(s,choix);//de premiere interface
 			afficher_sokoban(s);
-			s.joueur=trouve_personage_dans_sokoban(s);
-         
+			s.joueur=trouve_personage_dans_sokoban(s);     
 		}
 		if (test_char =='I'){
 			s=init_sokoban_vide();
 			s=resoudre_un_choix(s,choix);
 			afficher_sokoban(s);
-			s.joueur=trouve_personage_dans_sokoban(s);
+			s.joueur=trouve_personage_dans_sokoban(s);	
+		}
+		if(test_char =='M'){
+			print_liste(l);	
+		}		
+		if(test_char == 'U'){
+			if(l!=NULL&& l->prev!=NULL){
+				i--;
+				s=jouer_deplacement_a_l_evers(l->delta,s);
+				afficher_apres_un_deplacement(l->delta,s);
+				//a_suprimer=l;
+				l=l->prev;
+				//free(a_suprimer);
+			}
 			
 		}
+		if(test_char == 'R'){
+			if(l!=NULL&& l->suiv!=NULL){
+				i++;
+				l=l->suiv;
+				s=jouer_deplacement(l->delta,s);
+				afficher_apres_un_deplacement(l->delta,s);
+				//a_suprimer=l;
+				//l=l->suiv;
+				//free(a_suprimer);
+			}
+			
+		}
+		if(test_char =='K'){
+			libere(l->prev);	
+		}
+		
 	}
 	
 	if(test==arrow){// on se deplace
 		dep=changer_deplacement(test_fleche,s);	
 		if (autoriser_un_deplacement(s,dep)== oui){
+			i++;
 			dep.caisse_deplace=deplace_on_une_caisse(dep,s);
+			printf("avant l'insert|   ");
+			l=insert_debut(l,dep);
+			printf(" |apres insert\n");
 			s=jouer_deplacement(dep,s);
 			afficher_apres_un_deplacement(dep,s);
 		}
 		
 	}
-
+	afficher_le_nombre_de_coups(i);
 	
 
 }

@@ -2,7 +2,8 @@
 #include "gestion_de_fichier.c"
 
 
-liste init_liste(){
+liste init_liste(){// mieux vaux eviter d'avoir un ellement vide
+					// au debut donc je ne vais pas m'en servir
 	liste new ;
 	new = malloc(sizeof(struct element));
 	new->suiv = NULL;
@@ -10,39 +11,35 @@ liste init_liste(){
 	return new;
 }
 
-liste ajout_fin(liste l,deplacement d){
-	liste new= malloc(sizeof(struct element));
-	liste tmp=l;
-	new->delta =d;
-	new->suiv = NULL;
-
-	if(l==NULL){
-	new->prev = NULL;
-	return new;
-	}// else implicite
-	while(l->suiv != NULL){
-		l=l->suiv;
+void print_liste(liste l){
+	if (l!=NULL){
+		printf("dirr %d\n",l->delta.dirrection);
+		printf("caisse %d \n",l->delta.caisse_deplace);
+		printf("pos.x %d pos.y %d \n",l->delta.depart.x,l->delta.depart.y);
+		if (l->prev!=NULL){
+			print_liste(l->prev);
+		}
 	}
-	l->suiv=new;
-	
-	return tmp;
-}
-
-
-void clear(liste l){
-	if (l == NULL) return;
-	if (l->suiv != NULL)  clear(l->suiv);
-	
-	free(l);
 }
 
 
 
+void libere(liste l){
+	if(l != NULL){
+		libere(l->prev);
+		free(l);
+	}
+}
 
 
 
-// il faut la lecture du fichier 
 
-
-
+liste insert_debut(liste l,deplacement x){
+	liste new = malloc(sizeof(element));
+	new->delta=x;
+	new->suiv=NULL;
+	new->prev=l;
+	if(l!=NULL) l->suiv=new;
+	return new;
+}
 

@@ -148,6 +148,60 @@ sokoban jouer_deplacement(deplacement d, sokoban s){
 	return s;
 }
 
+
+sokoban jouer_deplacement_a_l_evers(deplacement d, sokoban s){
+	
+	pos destination=d.depart;
+	pos au_dela=d.depart;
+	if(d.dirrection==haut){	
+		 destination.y++;
+		 au_dela.y +=2;
+	 }
+	if(d.dirrection==bas){
+		destination.y--;
+		au_dela.y -=2;
+	}
+	if(d.dirrection==droite){
+		destination.x++;
+		au_dela.x +=2;
+	}
+	if(d.dirrection==gauche){
+		destination.x--;
+		au_dela.x -=2;
+	}
+		if(s.tab[d.depart.x][d.depart.y]==rien)
+			s.tab[d.depart.x][d.depart.y]=personage;
+		if(s.tab[d.depart.x][d.depart.y]==position_de_rangement)
+			s.tab[d.depart.x][d.depart.y]=personage_sur_rangement;
+		
+	if (d.caisse_deplace==oui){
+		if(s.tab[destination.x][destination.y]==personage)
+			s.tab[destination.x][destination.y]=caisse;
+		if(s.tab[destination.x][destination.y]==personage_sur_rangement)
+			s.tab[destination.x][destination.y]=caisse_rangee;
+			
+		if(s.tab[au_dela.x][au_dela.y]==caisse)
+			s.tab[au_dela.x][au_dela.y]=rien;
+		if(s.tab[au_dela.x][au_dela.y]==caisse_rangee)
+			s.tab[au_dela.x][au_dela.y]=position_de_rangement;
+		
+		
+		
+	}else{	
+
+		
+		if(s.tab[destination.x][destination.y]==personage)
+			s.tab[destination.x][destination.y]=rien;
+		if(s.tab[destination.x][destination.y]==personage_sur_rangement)
+			s.tab[destination.x][destination.y]=position_de_rangement;
+		
+	}
+	
+	s.joueur=d.depart;
+
+	return s;
+}
+
 deplacement changer_deplacement(int dirr ,sokoban s){
 	deplacement d;
 	d.dirrection=dirr;

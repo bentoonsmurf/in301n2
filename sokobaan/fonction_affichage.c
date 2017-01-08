@@ -371,8 +371,9 @@ void afficher_la_grille(sokoban s){
 	draw_line(p1,p2,blue);
 	p1.x=750; p1.y=600; 	p2.x=750; p2.y=99;
 	draw_line(p1,p2,blue);
-	
 	p1.x=280; p1.y=99; 		p2.x=280; p2.y=0;
+	draw_line(p1,p2,blue);
+	p1.x=650; p1.y=99; 		p2.x=650; p2.y=0;
 	draw_line(p1,p2,blue);
 	
 		p1.x=751; p1.y=225; 		p2.x=900; p2.y=225;
@@ -387,15 +388,14 @@ void afficher_la_grille(sokoban s){
 void afficher_les_options_de_jeu(){
 	POINT p1;
 	char *string;
-	
+
 	p1.x=85;  p1.y=90;
 	string="init";
 	aff_pol(string,50,p1,black);
 	
 	p1.x=300;  p1.y=90;
-	string="jouer un autre niveau";
-	aff_pol(string,50,p1,black);
-	
+	string="autre niveau";
+	aff_pol(string,50,p1,black);	
 	
 	p1.x=760;  p1.y=575;
 	string="undo";
@@ -442,6 +442,27 @@ void afficher_apres_un_deplacement(deplacement d,sokoban s){
 	
 	
 }
+
+void afficher_le_nombre_de_coups(int n){
+	if(n<0)n=0;
+	int milliers =n/1000;
+	int centaines=(n%1000)/100;
+	int dizaines=(n%100)/10;
+	int unites=n%10;
+	char string[4];
+	POINT p1,p2;
+	p1.x=700;  p1.y=90;	p2.x=899;  p2.y=0;
+	draw_fill_rectangle(p1,p2,white);
+	string[0]=milliers+48;
+	string[1]=centaines+48;
+	string[2]=dizaines+48;
+	string[3]=unites+48;
+	p1.x=710; p1.y=85;
+	aff_pol(string,50,p1,black);
+	p1.x=840;
+	draw_fill_rectangle(p1,p2,white);
+}
+
 
 void afficher_sokoban(sokoban s){
 	afficher_la_grille(s);

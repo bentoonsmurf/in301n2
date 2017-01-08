@@ -15,39 +15,33 @@ void detruire_sokoban(sokoban *s){
 
 
 ///////////////////////////////////////////////////////////////////////////////////////
-sokoban lire_sauvgarde_fonction(sokoban s){
+
+
+void print_sokoban_dans_fichier(sokoban s,FILE *f){//operationel
+	int x,y;
 	
-		FILE* f =fopen("sauvgarde","r");	
-		printf("je suis apres fopen et avant le while \n");
-		int caractere =32;
-		int x=0; int y=hauteur_max-1;
-		
-		while(caractere != EOF){
-			caractere = fgetc(f);
-			if(caractere ==13) {// allez savoir pourquoi \n ca marche pas
-				y--;
-				x=-1;
-			}
-			if(caractere =='#') s.tab[x][y]= mur;
-			if(caractere =='$') s.tab[x][y]= caisse;
-			if(caractere =='.') s.tab[x][y]= position_de_rangement;
-			if(caractere =='@') s.tab[x][y]= personage;
-			if(caractere =='*') s.tab[x][y]= caisse_rangee;
-			if(caractere =='+') s.tab[x][y]= personage_sur_rangement;
-			if(caractere ==' ') s.tab[x][y]= rien;
-			if(caractere == 10)x--;
-			x++;
-		//	printf("|%d|",s.tab[x][y]);
+	for (y=hauteur_max-1;y>=0;y--){
+		for(x=0;x<largeur_max;x++){
+			
+			
+			if( s.tab[x][y]== mur) fputc('#',f);
+			if( s.tab[x][y]== caisse) fputc('$',f);
+			if( s.tab[x][y]== position_de_rangement)fputc('.',f);
+			if( s.tab[x][y]== personage)fputc('@',f);
+			if( s.tab[x][y]== caisse_rangee)fputc('*',f);
+			if( s.tab[x][y]== personage_sur_rangement)fputc('+',f);
+			if( s.tab[x][y]== rien)fputc(' ',f);
+			printf("%d",s.tab[x][y]);
+			
 			
 		}
-printf("je suis apres le while \n");
-		fclose(f);
-
-printf("je suis apres fclose \n");		
-	
-	return s;
+		printf("|%d|\n",y);
+		fputc('\n',f);
+	}
 
 }
+
+
 sokoban lire_sauvgarde_fonction2(sokoban s){
 	int c=32;
 	int x=0; int y=hauteur_max-1;

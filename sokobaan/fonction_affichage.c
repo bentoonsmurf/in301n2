@@ -371,11 +371,12 @@ void afficher_la_grille(sokoban s){
 	draw_line(p1,p2,blue);
 	p1.x=750; p1.y=600; 	p2.x=750; p2.y=99;
 	draw_line(p1,p2,blue);
-	p1.x=280; p1.y=99; 		p2.x=280; p2.y=0;
+	p1.x=280; p1.y=0; 		p2.x=280; p2.y=99;
 	draw_line(p1,p2,blue);
-	p1.x=650; p1.y=99; 		p2.x=650; p2.y=0;
+	p1.x=650; p1.y=0; 		p2.x=650; p2.y=99;
 	draw_line(p1,p2,blue);
 	
+	// separer les options de droite
 		p1.x=751; p1.y=225; 		p2.x=900; p2.y=225;
 	draw_line(p1,p2,blue);
 		p1.x=751; p1.y=350; 		p2.x=900; p2.y=350;

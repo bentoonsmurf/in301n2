@@ -26,7 +26,6 @@ POINT test_point; test_point.x=10; test_point.y=15;
 int i=0;
 int test;
 liste l=NULL;
-//liste a_suprimer =NULL;
 while (test_char!='Q'){
 
 	test =  wait_key_arrow_clic_a_moi (&test_char, &test_fleche, &test_point);
@@ -59,9 +58,7 @@ while (test_char!='Q'){
 				i--;
 				s=jouer_deplacement_a_l_evers(l->delta,s);
 				afficher_apres_un_deplacement(l->delta,s);
-				//a_suprimer=l;
 				l=l->prev;
-				//free(a_suprimer);
 			}
 			
 		}
@@ -71,9 +68,6 @@ while (test_char!='Q'){
 				l=l->suiv;
 				s=jouer_deplacement(l->delta,s);
 				afficher_apres_un_deplacement(l->delta,s);
-				//a_suprimer=l;
-				//l=l->suiv;
-				//free(a_suprimer);
 			}
 			
 		}
@@ -96,19 +90,67 @@ while (test_char!='Q'){
 		}
 		
 	}
+	if(test==clic){
+		if(test_point.y<100){
+			if(test_point.x<280){		
+				//init
+			s=init_sokoban_vide();
+			s=resoudre_un_choix(s,choix);
+			afficher_sokoban(s);
+			s.joueur=trouve_personage_dans_sokoban(s);	
+			}
+			if(test_point.x<650){
+				// autre partie
+			s=init_sokoban_vide();
+			choix=choix_premiere_interface();
+			s=resoudre_un_choix(s,choix);//de premiere interface
+			afficher_sokoban(s);
+			s.joueur=trouve_personage_dans_sokoban(s);  
+			}	
+		}
+		// ici je sait que test_point.y > 100
+		if(test_point.x>750){
+			if(test_point.y<225){
+				//quit
+				exit(0);
+			}
+			if(test_point.y>475){
+				//undo
+				if(l!=NULL&& l->prev!=NULL){
+					i--;
+					s=jouer_deplacement_a_l_evers(l->delta,s);
+					afficher_apres_un_deplacement(l->delta,s);
+					l=l->prev;
+				}
+				
+				
+			}
+			if(test_point.y>350 && test_point.y<475){
+				//redo
+				if(l!=NULL&& l->suiv!=NULL){
+					i++;
+					l=l->suiv;
+					s=jouer_deplacement(l->delta,s);
+					afficher_apres_un_deplacement(l->delta,s);
+				}
+				
+			}
+			if(test_point.y>225 && test_point.y<350){
+				//sauvgarde
+				
+			}
+			
+		}
+		
+		
+		
+	}
 	afficher_le_nombre_de_coups(i);
 	
 
 }
 print_sokoban2(s);
 afficher_sokoban(s);
-wait_clic();
-//wait(200);
-
-
-//undo = test + memoire = memoire->prev
-//redo = test + memoire = memoire->suiv
-//init = memoire_clean + 
 
 detruire_sokoban(&s);
 printf(" tout va bien \n");
